@@ -13,14 +13,37 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
-NC='\033[0m' # No Color
+MAGENTA='\033[0;35m'
+NC='\033[0m'
 
-echo -e "${CYAN}🚀 Starting 'Hacker Build' v2.1 Overhaul...${NC}"
+echo -e "${MAGENTA}💎 Vibe Engineering | Build System v3.0${NC}"
 
 # Parse flags
 RELEASE=false
-if [[ "$1" == "--release" ]]; then
-    RELEASE=true
+BUMP=false
+for arg in "$@"; do
+    if [[ "$arg" == "--release" ]]; then RELEASE=true; fi
+    if [[ "$arg" == "--bump" ]]; then BUMP=true; fi
+done
+
+if [ "$BUMP" = true ]; then
+    echo -e "${BLUE}📈 Bumping Version...${NC}"
+    # Bump versionCode
+    OLD_CODE=$(grep "versionCode =" app/build.gradle.kts | tr -d ' ' | cut -d'=' -f2)
+    NEW_CODE=$((OLD_CODE + 1))
+    sed -i "s/versionCode = $OLD_CODE/versionCode = $NEW_CODE/" app/build.gradle.kts
+    
+    # Bump versionName (e.g., 4.0 -> 4.1)
+    OLD_NAME=$(grep "versionName =" app/build.gradle.kts | cut -d'"' -f2)
+    BASE_VERSION=$(echo "$OLD_NAME" | cut -d'.' -f1)
+    MINOR_VERSION=$(echo "$OLD_NAME" | cut -d'.' -f2)
+    NEW_MINOR=$((MINOR_VERSION + 1))
+    NEW_NAME="$BASE_VERSION.$NEW_MINOR"
+    sed -i "s/versionName = \"$OLD_NAME\"/versionName = \"$NEW_NAME\"/" app/build.gradle.kts
+    echo -e "${GREEN}✨ Version bumped to v$NEW_NAME (Build $NEW_CODE)${NC}"
+fi
+
+if [ "$RELEASE" = true ]; then
     echo -e "${BLUE}📦 Release Mode Armed.${NC}"
 fi
 
@@ -83,10 +106,10 @@ if [ -f "$APK_PATH" ]; then
     if [ "$RELEASE" = true ]; then
         echo -e "${CYAN}🚀 Triggering Automated Release Sequence...${NC}"
         git add .
-        git commit -m "Release: v$VERSION_NAME"
-        git push origin master
+        git commit -m "Release: v$VERSION_NAME" || true
+        git push origin master || true
         
-        $GH_CLI release create "v$VERSION_NAME" "$APK_PATH" --title "VibeNews v$VERSION_NAME" --notes "Automated release of v$VERSION_NAME."
+        $GH_CLI release create "v$VERSION_NAME" "$APK_PATH" --title "VibeNews v$VERSION_NAME" --notes "Portfolio Edition: v$VERSION_NAME" || true
         echo -e "${GREEN}🔥 Release v$VERSION_NAME is LIVE!${NC}"
     fi
 else

@@ -15,6 +15,8 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -47,6 +49,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
+                val haptic = LocalHapticFeedback.current
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -64,6 +67,7 @@ class MainActivity : ComponentActivity() {
                                         label = { Text("Home") },
                                         selected = currentRoute == "home",
                                         onClick = { 
+                                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                             navController.navigate("home") {
                                                 popUpTo("home") { inclusive = true }
                                                 launchSingleTop = true 
@@ -75,6 +79,7 @@ class MainActivity : ComponentActivity() {
                                         label = { Text("Saved") },
                                         selected = currentRoute == "bookmarks",
                                         onClick = { 
+                                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                             navController.navigate("bookmarks") {
                                                 launchSingleTop = true 
                                             }
@@ -85,6 +90,7 @@ class MainActivity : ComponentActivity() {
                                         label = { Text("Settings") },
                                         selected = currentRoute == "settings",
                                         onClick = { 
+                                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                             navController.navigate("settings") {
                                                 launchSingleTop = true 
                                             }

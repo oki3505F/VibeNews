@@ -1,9 +1,9 @@
-[0;36m🚀 Starting 'Hacker Build' v2.1 Overhaul...[0m
+[0;35m💎 Vibe Engineering | Build System v3.0[0m
 [0;34m📦 Release Mode Armed.[0m
 📜 Preparing SDK...
 Loading package information...                                                  Loading local repository...                                                     [                                       ] 3% Loading local repository...        [                                       ] 3% Fetch remote repository...         [=                                      ] 3% Fetch remote repository...         [=                                      ] 4% Fetch remote repository...         [=                                      ] 5% Fetch remote repository...         [==                                     ] 5% Fetch remote repository...         [==                                     ] 6% Fetch remote repository...         [==                                     ] 7% Fetch remote repository...         [==                                     ] 7% Computing updates...               [===                                    ] 8% Computing updates...               [===                                    ] 10% Computing updates...              [=======================================] 100% Computing updates...             
 
-[0;32m🏗️  Building VibeNews v4.0...[0m
+[0;32m🏗️  Building VibeNews v4.1...[0m
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 > Task :app:clean
@@ -32,11 +32,10 @@ Daemon will be stopped at the end of the build
 > Task :app:stripReleaseDebugSymbols
 Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so.
 
-> Task :app:processReleaseManifestForPackage
 > Task :app:mergeReleaseArtProfile
 > Task :app:extractReleaseNativeSymbolTables
+> Task :app:processReleaseManifestForPackage
 > Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
-> Task :app:processReleaseResources
 > Task :app:mergeReleaseShaders
 > Task :app:compileReleaseShaders NO-SOURCE
 > Task :app:generateReleaseAssets UP-TO-DATE
@@ -47,50 +46,31 @@ Unable to strip the following libraries, packaging them as they are: libandroidx
 > Task :app:validateSigningRelease
 > Task :app:writeReleaseAppMetadata
 > Task :app:writeReleaseSigningConfigVersions
+> Task :app:processReleaseResources
 > Task :app:optimizeReleaseResources
 > Task :app:mergeExtDexRelease
 > Task :app:kaptGenerateStubsReleaseKotlin
 > Task :app:kaptReleaseKotlin
 
-> Task :app:compileReleaseKotlin
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/data/NewsRepository.kt:95:13 Variable 'articles' is never used
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/article/ArticleDetailScreen.kt:43:44 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/home/HomeScreen.kt:172:53 'animateItemPlacement(FiniteAnimationSpec<IntOffset> = ...): Modifier' is deprecated. Use Modifier.animateItem() instead
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/settings/SettingsScreen.kt:29:44 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/settings/SettingsScreen.kt:57:13 'Divider(Modifier = ..., Dp = ..., Color = ...): Unit' is deprecated. Renamed to HorizontalDivider
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/settings/SettingsScreen.kt:81:13 'Divider(Modifier = ..., Dp = ..., Color = ...): Unit' is deprecated. Renamed to HorizontalDivider
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/util/LocationHelper.kt:18:38 'getFromLocation(Double, Double, Int): (Mutable)List<Address!>?' is deprecated. Deprecated in Java
+> Task :app:compileReleaseKotlin FAILED
+e: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/article/ArticleDetailScreen.kt:10:47 Unresolved reference: ContentCopy
+e: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/article/ArticleDetailScreen.kt:11:47 Unresolved reference: Language
+e: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/article/ArticleDetailScreen.kt:66:44 Unresolved reference: ContentCopy
+e: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/article/ArticleDetailScreen.kt:72:44 Unresolved reference: Language
+e: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/article/ArticleDetailScreen.kt:171:36 Unresolved reference: Transparent
 
-> Task :app:compileReleaseJavaWithJavac
-> Task :app:hiltAggregateDepsRelease
-> Task :app:hiltJavaCompileRelease
-> Task :app:generateReleaseLintVitalReportModel
-> Task :app:processReleaseJavaRes
-> Task :app:transformReleaseClassesWithAsm
-> Task :app:mergeReleaseJavaResource
-> Task :app:dexBuilderRelease
-> Task :app:mergeReleaseGlobalSynthetics
-> Task :app:mergeDexRelease
-> Task :app:compileReleaseArtProfile
-> Task :app:packageRelease
-> Task :app:createReleaseApkListingFileRedirect
-> Task :app:lintVitalAnalyzeRelease
-> Task :app:lintVitalReportRelease
-> Task :app:lintVitalRelease
-> Task :app:assembleRelease
+FAILURE: Build failed with an exception.
 
-BUILD SUCCESSFUL in 2m 45s
-53 actionable tasks: 53 executed
-[0;32m✅ Build Success: app/build/outputs/apk/release/app-release.apk[0m
-[0;36m🚀 Triggering Automated Release Sequence...[0m
-[master 465b05e] Release: v4.0
- 14 files changed, 532 insertions(+), 83 deletions(-)
- create mode 100644 app/src/main/java/com/vibe/news/ui/components/Shimmer.kt
- create mode 100644 app/src/main/java/com/vibe/news/ui/home/BookmarksScreen.kt
- create mode 100644 app/src/main/java/com/vibe/news/util/LocationHelper.kt
- create mode 100644 build_v4.0_release.log
- create mode 100644 build_v4.0_release_retry.log
-To https://github.com/oki3505F/VibeNews.git
-   f4cc3f5..465b05e  master -> master
-https://github.com/oki3505F/VibeNews/releases/tag/v4.0
-[0;32m🔥 Release v4.0 is LIVE![0m
+* What went wrong:
+Execution failed for task ':app:compileReleaseKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1m 20s
+37 actionable tasks: 37 executed

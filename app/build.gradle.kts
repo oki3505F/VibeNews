@@ -14,8 +14,8 @@ android {
         applicationId = "com.vibe.news"
         minSdk = 24
         targetSdk = 34
-        versionCode = 12
-        versionName = "4.0"
+        versionCode = 13
+        versionName = "4.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -97,6 +97,9 @@ dependencies {
     
     // WebKit for Stealth Mode
     implementation("androidx.webkit:webkit:1.10.0")
+    
+    // Icons
+    implementation("androidx.compose.material:material-icons-extended")
 
     // Location
     implementation("com.google.android.gms:play-services-location:21.1.0")
