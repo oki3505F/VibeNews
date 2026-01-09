@@ -8,18 +8,17 @@ plugins {
 android {
     namespace = "com.vibe.news"
     compileSdk = 34
+    buildToolsVersion = "34.0.0"
 
     defaultConfig {
         applicationId = "com.vibe.news"
         minSdk = 24
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.2"
+        versionCode = 4
+        versionName = "1.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+
     }
 
     signingConfigs {
@@ -34,7 +33,8 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = true
+            isMinifyEnabled = false // CRITICAL FIX: Disable R8 to prevent shrinking crashes
+            isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -57,10 +57,7 @@ android {
         }
     }
     
-    lint {
-        checkReleaseBuilds = false
-        abortOnError = false
-    }
+
 }
 
 dependencies {

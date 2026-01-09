@@ -1,0 +1,4 @@
+.build_setup/gradle/gradle-8.2/bin/gradle: line 107: uname: command not found
+
+xargs is not available
+

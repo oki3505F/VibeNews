@@ -70,8 +70,7 @@ fi
 # 5. Build
 echo "🏗️  Building RELEASE APK..."
 chmod +x "$GRADLE_BIN"
-"$GRADLE_BIN" clean
-"$GRADLE_BIN" assembleRelease --stacktrace > build.log 2>&1 || true
+"$GRADLE_BIN" clean assembleRelease --stacktrace
 
 echo "📜 Reading Build Log (Errors only)..."
 grep -A 20 "FAILED" build.log || true
