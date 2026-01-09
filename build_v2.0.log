@@ -1,0 +1,89 @@
+🚀 Starting 'Hacker Build' Sequence...
+✅ Java Setup: openjdk version "17.0.10" 2024-01-16
+📜 Accepting Licenses & Installing SDK...
+Loading package information...                                                  Loading local repository...                                                     [                                       ] 3% Loading local repository...        [                                       ] 3% Fetch remote repository...         [=                                      ] 3% Fetch remote repository...         [=                                      ] 4% Fetch remote repository...         [=                                      ] 5% Fetch remote repository...         [==                                     ] 5% Fetch remote repository...         [==                                     ] 6% Fetch remote repository...         [==                                     ] 7% Fetch remote repository...         [==                                     ] 7% Computing updates...               [===                                    ] 8% Computing updates...               [===                                    ] 10% Computing updates...              [=======================================] 100% Computing updates...             
+
+🔧 Setting up Gradle...
+🏗️  Building RELEASE APK (v2.0 'Wow' Edition)...
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:clean
+> Task :app:buildKotlinToolingMetadata
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:checkReleaseAarMetadata
+> Task :app:generateReleaseResValues
+> Task :app:mapReleaseSourceSetPaths
+> Task :app:generateReleaseResources
+> Task :app:packageReleaseResources
+> Task :app:createReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksRelease
+> Task :app:parseReleaseLocalResources
+> Task :app:mergeReleaseResources
+> Task :app:processReleaseMainManifest
+> Task :app:processReleaseManifest
+> Task :app:extractProguardFiles
+> Task :app:javaPreCompileRelease
+> Task :app:mergeReleaseJniLibFolders
+> Task :app:mergeReleaseNativeLibs
+> Task :app:desugarReleaseFileDependencies
+> Task :app:checkReleaseDuplicateClasses
+
+> Task :app:stripReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so.
+
+> Task :app:mergeReleaseArtProfile
+> Task :app:processReleaseManifestForPackage
+> Task :app:extractReleaseNativeSymbolTables
+> Task :app:mergeExtDexRelease
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:mergeReleaseShaders
+> Task :app:compileReleaseShaders NO-SOURCE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:mergeReleaseAssets
+> Task :app:compressReleaseAssets
+> Task :app:collectReleaseDependencies
+> Task :app:sdkReleaseDependencyData
+> Task :app:validateSigningRelease
+> Task :app:writeReleaseAppMetadata
+> Task :app:writeReleaseSigningConfigVersions
+> Task :app:processReleaseResources
+> Task :app:optimizeReleaseResources
+> Task :app:kaptGenerateStubsReleaseKotlin
+> Task :app:kaptReleaseKotlin
+
+> Task :app:compileReleaseKotlin
+w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/data/NewsRepository.kt:86:13 Variable 'articles' is never used
+w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/article/ArticleDetailScreen.kt:41:44 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack
+w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/home/HomeScreen.kt:128:49 'animateItemPlacement(FiniteAnimationSpec<IntOffset> = ...): Modifier' is deprecated. Use Modifier.animateItem() instead
+w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/settings/SettingsScreen.kt:54:13 'Divider(Modifier = ..., Dp = ..., Color = ...): Unit' is deprecated. Renamed to HorizontalDivider
+
+> Task :app:compileReleaseJavaWithJavac
+
+> Task :app:hiltAggregateDepsRelease
+WARNING: [Processor] Library '/home/oki/.gradle/caches/transforms-3/406fe762c8b7b493f3ed1c52f40fe4f5/transformed/core-1.13.1-api.jar' contains references to both AndroidX and old support library. This seems like the library is partially migrated. Jetifier will try to rewrite the library anyway.
+ Example of androidX reference: 'androidx/core/util/Supplier'
+ Example of support library reference: 'android/support/v4/app/INotificationSideChannel$Default'
+
+> Task :app:hiltJavaCompileRelease
+> Task :app:generateReleaseLintVitalReportModel
+> Task :app:processReleaseJavaRes
+> Task :app:transformReleaseClassesWithAsm
+> Task :app:dexBuilderRelease
+> Task :app:mergeReleaseGlobalSynthetics
+> Task :app:mergeReleaseJavaResource
+> Task :app:mergeDexRelease
+> Task :app:compileReleaseArtProfile
+> Task :app:packageRelease
+> Task :app:createReleaseApkListingFileRedirect
+> Task :app:lintVitalAnalyzeRelease
+> Task :app:lintVitalReportRelease
+> Task :app:lintVitalRelease
+> Task :app:assembleRelease
+
+BUILD SUCCESSFUL in 4m 4s
+53 actionable tasks: 53 executed
+📜 Checking results...
+🎉 Build Success! APK location:
+app/build/outputs/apk/release/app-release.apk

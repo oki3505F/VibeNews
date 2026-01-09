@@ -73,6 +73,12 @@ class NewsRepository @Inject constructor(
     }
     
     fun search(query: String) = newsDao.searchArticles(query)
+
+    fun getBookmarkedArticles() = newsDao.getBookmarkedArticles()
+
+    suspend fun toggleBookmark(article: Article) {
+        newsDao.updateBookmarkStatus(article.id, !article.isBookmarked)
+    }
     
     suspend fun resetInterests() {
         newsDao.clearCategoryScores()

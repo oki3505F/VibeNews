@@ -68,7 +68,7 @@ if [ ! -f "$KEYSTORE_PATH" ]; then
 fi
 
 # 5. Build
-echo "🏗️  Building RELEASE APK (v1.6)..."
+echo "🏗️  Building RELEASE APK (v2.0 'Wow' Edition)..."
 chmod +x "$GRADLE_BIN"
 "$GRADLE_BIN" clean assembleRelease --no-daemon --stacktrace
 

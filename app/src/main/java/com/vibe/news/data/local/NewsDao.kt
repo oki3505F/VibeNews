@@ -32,6 +32,12 @@ interface NewsDao {
     @Query("DELETE FROM category_scores")
     suspend fun clearCategoryScores()
 
+    @Query("SELECT * FROM articles WHERE isBookmarked = 1 ORDER BY pubDate DESC")
+    fun getBookmarkedArticles(): Flow<List<Article>>
+
+    @Query("UPDATE articles SET isBookmarked = :isBookmarked WHERE id = :articleId")
+    suspend fun updateBookmarkStatus(articleId: Int, isBookmarked: Boolean)
+
     @Query("DELETE FROM articles")
     suspend fun clearAll()
 }

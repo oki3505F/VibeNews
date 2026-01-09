@@ -13,5 +13,6 @@ data class Article(
     val source: String,
     val pubDate: Long,
     val category: String,
-    val interestScore: Int = 0 
+    val interestScore: Int = 0,
+    val isBookmarked: Boolean = false
 )

@@ -50,4 +50,10 @@ class HomeViewModel @Inject constructor(
              repository.voteArticle(article)
         }
     }
+
+    fun toggleBookmark(article: Article) {
+        viewModelScope.launch {
+            repository.toggleBookmark(article)
+        }
+    }
 }
