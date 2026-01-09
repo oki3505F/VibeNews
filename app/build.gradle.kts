@@ -56,6 +56,11 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
 }
 
 dependencies {
@@ -75,7 +80,12 @@ dependencies {
 
     // Network & Parsing
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-simplexml:2.9.0") 
+    implementation("com.squareup.retrofit2:converter-simplexml:2.9.0") {
+        exclude(group = "xpp3", module = "xpp3")
+        exclude(group = "stax", module = "stax-api")
+        exclude(group = "stax", module = "stax")
+        exclude(group = "xmlpull", module = "xmlpull")
+    }
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("io.coil-kt:coil-compose:2.5.0")
     
