@@ -14,8 +14,8 @@ android {
         applicationId = "com.vibe.news"
         minSdk = 24
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.4"
+        versionCode = 6
+        versionName = "1.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -77,12 +77,7 @@ dependencies {
 
     // Network & Parsing
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-simplexml:2.9.0") {
-        exclude(group = "xpp3", module = "xpp3")
-        exclude(group = "stax", module = "stax-api")
-        exclude(group = "stax", module = "stax")
-        exclude(group = "xmlpull", module = "xmlpull")
-    }
+    implementation("com.squareup.retrofit2:converter-simplexml:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("io.coil-kt:coil-compose:2.5.0")
     

@@ -68,13 +68,15 @@ if [ ! -f "$KEYSTORE_PATH" ]; then
 fi
 
 # 5. Build
-echo "🏗️  Building RELEASE APK..."
+echo "🏗️  Building RELEASE APK (v1.6)..."
 chmod +x "$GRADLE_BIN"
-"$GRADLE_BIN" clean assembleRelease --stacktrace
+"$GRADLE_BIN" clean assembleRelease --no-daemon --stacktrace
 
-echo "📜 Reading Build Log (Errors only)..."
-grep -A 20 "FAILED" build.log || true
-grep -A 20 "Caused by" build.log || true
-
-echo "🎉 Build Complete! APK should be in app/build/outputs/apk/release/"
-find app/build/outputs/apk/release/ -name "*.apk"
+echo "📜 Checking results..."
+if find app/build/outputs/apk/release/ -name "*.apk" | grep -q ".apk"; then
+    echo "🎉 Build Success! APK location:"
+    find app/build/outputs/apk/release/ -name "*.apk"
+else
+    echo "❌ Build FAILED. Check the logs above."
+    exit 1
+fi

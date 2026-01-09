@@ -1,25 +1,25 @@
 package com.vibe.news
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.vibe.news.ui.theme.VibeNewsTheme
 import com.vibe.news.ui.home.HomeScreen
 import dagger.hilt.android.AndroidEntryPoint
 import android.net.Uri
-import androidx.browser.customtabs.CustomTabsIntent
+import android.util.Log
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
