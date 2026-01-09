@@ -31,6 +31,10 @@ class HomeViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    val currentCity = kotlinx.coroutines.flow.flow {
+        emit(repository.getCurrentCity())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
     init {
         refresh()
     }
@@ -56,4 +60,6 @@ class HomeViewModel @Inject constructor(
             repository.toggleBookmark(article)
         }
     }
+
+    fun getBookmarkedArticles() = repository.getBookmarkedArticles()
 }

@@ -29,8 +29,13 @@ import java.util.Date
 import android.text.format.DateUtils
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
+import com.vibe.news.ui.components.ShimmerArticleItem
+import android.Manifest
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import androidx.compose.runtime.LaunchedEffect
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class, ExperimentalPermissionsApi::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
@@ -43,7 +48,17 @@ fun HomeScreen(
     val state = rememberPullToRefreshState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     
-    val categories = listOf("All", "BBC Technology", "BBC World", "NYT Technology", "The Verge")
+    val locationPermissions = rememberMultiplePermissionsState(
+        listOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+    )
+
+    LaunchedEffect(Unit) {
+        if (!locationPermissions.allPermissionsGranted) {
+            locationPermissions.launchMultiplePermissionRequest()
+        }
+    }
+
+    val categories = listOf("All", "BBC Technology", "BBC World", "NYT Technology", "The Verge", "The Hindu (India)", "NDTV (India)")
     var selectedCategory by remember { mutableStateOf("All") }
 
     val filteredArticles = if (selectedCategory == "All") {
@@ -57,11 +72,21 @@ fun HomeScreen(
         topBar = {
             LargeTopAppBar(
                 title = { 
-                    Text(
-                        "Discover", 
-                        fontWeight = FontWeight.Black,
-                        style = MaterialTheme.typography.headlineLarge
-                    ) 
+                    Column {
+                        Text(
+                            "Discover", 
+                            fontWeight = FontWeight.Black,
+                            style = MaterialTheme.typography.headlineLarge
+                        )
+                        val city by viewModel.currentCity.collectAsState()
+                        if (city != null) {
+                            Text(
+                                text = "Local news for $city",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
                 },
                 actions = {
                     IconButton(onClick = onSettingsClick) {
@@ -131,16 +156,22 @@ fun HomeScreen(
                     contentPadding = PaddingValues(bottom = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(2.dp) // Tighter vertical grouping
                 ) {
-                    items(filteredArticles, key = { it.id }) { article ->
-                        ArticleCard(
-                            article = article,
-                            onBookmarkClick = { viewModel.toggleBookmark(article) },
-                            onClick = {
-                                viewModel.onArticleClick(article)
-                                onArticleClick(article.link, article.title)
-                            },
-                            modifier = Modifier.animateItemPlacement()
-                        )
+                    if (articles.isEmpty() && !isRefreshing) {
+                        items(5) {
+                            ShimmerArticleItem(showShimmer = true) {}
+                        }
+                    } else {
+                        items(filteredArticles, key = { it.id }) { article ->
+                            ArticleCard(
+                                article = article,
+                                onBookmarkClick = { viewModel.toggleBookmark(article) },
+                                onClick = {
+                                    viewModel.onArticleClick(article)
+                                    onArticleClick(article.link, article.title)
+                                },
+                                modifier = Modifier.animateItemPlacement()
+                            )
+                        }
                     }
                 }
             }

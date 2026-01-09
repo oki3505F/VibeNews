@@ -3,7 +3,7 @@
 📜 Preparing SDK...
 Loading package information...                                                  Loading local repository...                                                     [                                       ] 3% Loading local repository...        [                                       ] 3% Fetch remote repository...         [=                                      ] 3% Fetch remote repository...         [=                                      ] 4% Fetch remote repository...         [=                                      ] 5% Fetch remote repository...         [==                                     ] 5% Fetch remote repository...         [==                                     ] 6% Fetch remote repository...         [==                                     ] 7% Fetch remote repository...         [==                                     ] 7% Computing updates...               [===                                    ] 8% Computing updates...               [===                                    ] 10% Computing updates...              [=======================================] 100% Computing updates...             
 
-[0;32m🏗️  Building VibeNews v3.0...[0m
+[0;32m🏗️  Building VibeNews v4.0...[0m
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 > Task :app:clean
@@ -25,17 +25,17 @@ Daemon will be stopped at the end of the build
 > Task :app:extractProguardFiles
 > Task :app:javaPreCompileRelease
 > Task :app:mergeReleaseJniLibFolders
-> Task :app:processReleaseManifestForPackage
 > Task :app:mergeReleaseNativeLibs
+> Task :app:desugarReleaseFileDependencies
+> Task :app:checkReleaseDuplicateClasses
 
 > Task :app:stripReleaseDebugSymbols
 Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so.
 
-> Task :app:desugarReleaseFileDependencies
-> Task :app:extractReleaseNativeSymbolTables
-> Task :app:checkReleaseDuplicateClasses
-> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:processReleaseManifestForPackage
 > Task :app:mergeReleaseArtProfile
+> Task :app:extractReleaseNativeSymbolTables
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
 > Task :app:processReleaseResources
 > Task :app:mergeReleaseShaders
 > Task :app:compileReleaseShaders NO-SOURCE
@@ -53,14 +53,13 @@ Unable to strip the following libraries, packaging them as they are: libandroidx
 > Task :app:kaptReleaseKotlin
 
 > Task :app:compileReleaseKotlin
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/data/NewsRepository.kt:86:13 Variable 'articles' is never used
+w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/data/NewsRepository.kt:95:13 Variable 'articles' is never used
 w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/article/ArticleDetailScreen.kt:43:44 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/article/ArticleDetailScreen.kt:96:47 'setForceDark(WebSettings, Int): Unit' is deprecated. Deprecated in Java
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/article/ArticleDetailScreen.kt:96:88 'FORCE_DARK_ON: Int' is deprecated. Deprecated in Java
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/home/HomeScreen.kt:142:49 'animateItemPlacement(FiniteAnimationSpec<IntOffset> = ...): Modifier' is deprecated. Use Modifier.animateItem() instead
+w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/home/HomeScreen.kt:172:53 'animateItemPlacement(FiniteAnimationSpec<IntOffset> = ...): Modifier' is deprecated. Use Modifier.animateItem() instead
 w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/settings/SettingsScreen.kt:29:44 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack
 w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/settings/SettingsScreen.kt:57:13 'Divider(Modifier = ..., Dp = ..., Color = ...): Unit' is deprecated. Renamed to HorizontalDivider
 w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/settings/SettingsScreen.kt:81:13 'Divider(Modifier = ..., Dp = ..., Color = ...): Unit' is deprecated. Renamed to HorizontalDivider
+w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/util/LocationHelper.kt:18:38 'getFromLocation(Double, Double, Int): (Mutable)List<Address!>?' is deprecated. Deprecated in Java
 
 > Task :app:compileReleaseJavaWithJavac
 > Task :app:hiltAggregateDepsRelease
@@ -68,9 +67,9 @@ w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/s
 > Task :app:generateReleaseLintVitalReportModel
 > Task :app:processReleaseJavaRes
 > Task :app:transformReleaseClassesWithAsm
+> Task :app:mergeReleaseJavaResource
 > Task :app:dexBuilderRelease
 > Task :app:mergeReleaseGlobalSynthetics
-> Task :app:mergeReleaseJavaResource
 > Task :app:mergeDexRelease
 > Task :app:compileReleaseArtProfile
 > Task :app:packageRelease
@@ -80,15 +79,7 @@ w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/s
 > Task :app:lintVitalRelease
 > Task :app:assembleRelease
 
-BUILD SUCCESSFUL in 2m 31s
+BUILD SUCCESSFUL in 2m 45s
 53 actionable tasks: 53 executed
 [0;32m✅ Build Success: app/build/outputs/apk/release/app-release.apk[0m
 [0;36m🚀 Triggering Automated Release Sequence...[0m
-[master f4cc3f5] Release: v3.0
- 13 files changed, 334 insertions(+), 64 deletions(-)
- create mode 100644 app/src/main/java/com/vibe/news/ui/theme/ThemeManager.kt
- create mode 100644 build_v3.0_release.log
-To https://github.com/oki3505F/VibeNews.git
-   a812c5a..f4cc3f5  master -> master
-https://github.com/oki3505F/VibeNews/releases/tag/v3.0
-[0;32m🔥 Release v3.0 is LIVE![0m

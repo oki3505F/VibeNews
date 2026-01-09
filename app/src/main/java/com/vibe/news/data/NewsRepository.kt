@@ -14,7 +14,8 @@ import javax.inject.Singleton
 @Singleton
 class NewsRepository @Inject constructor(
     private val newsDao: NewsDao,
-    private val client: OkHttpClient // We'll use raw OkHttp for flexibility with RssParser
+    private val client: OkHttpClient, // We'll use raw OkHttp for flexibility with RssParser
+    private val locationHelper: com.vibe.news.util.LocationHelper
 ) {
     val articles = newsDao.getAllArticles()
     private val parser = RssParser()
@@ -22,12 +23,20 @@ class NewsRepository @Inject constructor(
     suspend fun refreshNews() {
         withContext(Dispatchers.IO) {
             // Updated list of sources with valid RSS Feeds
-            val sources = mapOf(
+            val sources = mutableMapOf(
                 "BBC Technology" to "http://feeds.bbci.co.uk/news/technology/rss.xml",
                 "BBC World" to "http://feeds.bbci.co.uk/news/world/rss.xml",
                 "NYT Technology" to "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
-                "The Verge" to "https://www.theverge.com/rss/index.xml"
+                "The Verge" to "https://www.theverge.com/rss/index.xml",
+                "The Hindu (India)" to "https://www.thehindu.com/news/national/feeder/default.rss",
+                "NDTV (India)" to "https://feeds.feedburner.com/ndtvnews-india-news"
             )
+
+            // Add Local News if location is available
+            val city = locationHelper.getCurrentCity()
+            if (city != null) {
+                sources["Local ($city)"] = "https://news.google.com/rss/search?q=$city&hl=en-IN&gl=IN&ceid=IN:en"
+            }
 
             sources.forEach { (name, url) ->
                 try {
@@ -87,5 +96,9 @@ class NewsRepository @Inject constructor(
         // For simplicity, just clearing category scores affects future fetches.
         // To update current list, we'd need to re-fetch or update all.
         refreshNews()
+    }
+
+    suspend fun getCurrentCity(): String? {
+        return locationHelper.getCurrentCity()
     }
 }

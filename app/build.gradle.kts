@@ -14,8 +14,8 @@ android {
         applicationId = "com.vibe.news"
         minSdk = 24
         targetSdk = 34
-        versionCode = 11
-        versionName = "3.0"
+        versionCode = 12
+        versionName = "4.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -97,6 +97,11 @@ dependencies {
     
     // WebKit for Stealth Mode
     implementation("androidx.webkit:webkit:1.10.0")
+
+    // Location
+    implementation("com.google.android.gms:play-services-location:21.1.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    implementation("com.google.accompanist:accompanist-permissions:0.34.0")
     
     // Custom Tabs
     implementation("androidx.browser:browser:1.7.0")

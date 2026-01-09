@@ -37,7 +37,13 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideThemeManager(app: Application): com.vibe.news.ui.theme.ThemeManager {
+    fun provideThemeManager(app: android.app.Application): com.vibe.news.ui.theme.ThemeManager {
         return com.vibe.news.ui.theme.ThemeManager(app)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationHelper(app: android.app.Application): com.vibe.news.util.LocationHelper {
+        return com.vibe.news.util.LocationHelper(app)
     }
 }

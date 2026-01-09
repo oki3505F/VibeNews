@@ -59,22 +59,26 @@ fun ArticleDetailScreen(
                         webViewClient = object : WebViewClient() {
                             override fun onPageFinished(view: WebView?, url: String?) {
                                 isLoading = false
-                                // Stealth Mode: Hide Paywalls and Banners
+                                // Stealth Mode: Refined Paywall and Banner Stripper
                                 val stealthJs = """
                                     (function() {
                                         const selectors = [
-                                            '.expanded-dock', '.css-17lryp7', '.css-17lryp7', 
+                                            '.expanded-dock', '.css-17lryp7', '.css-mcm697', 
                                             '.nytheader', '.css-19v7m0s', '#gateway-content', 
                                             '.css-1bd9p34', '.tp-modal', '.tp-backdrop', 
                                             '#credential_picker_container', '.social-share',
-                                            '.ad-container', 'aside'
+                                            '.ad-container', 'aside', '.paywall', '#paywall',
+                                            '.subscription-modal', '.newsletter-signup',
+                                            '.fc-consent-root', '.css-1hy7yjr'
                                         ];
                                         selectors.forEach(s => {
-                                            const el = document.querySelector(s);
-                                            if (el) el.style.display = 'none';
+                                            const elements = document.querySelectorAll(s);
+                                            elements.forEach(el => el.style.display = 'none');
                                         });
+                                        // Force scrollability in case paywall disabled it
                                         document.body.style.overflow = 'auto';
                                         document.documentElement.style.overflow = 'auto';
+                                        document.body.style.setProperty('overflow', 'auto', 'important');
                                     })();
                                 """.trimIndent()
                                 view?.evaluateJavascript(stealthJs, null)
@@ -88,13 +92,11 @@ fun ArticleDetailScreen(
                             useWideViewPort = true
                             loadWithOverviewMode = true
                             builtInZoomControls = true
-                            displayZoomControls = false
+                            displayZoomControls = true
+                            setSupportZoom(true)
                         }
 
-                        // Force Dark Mode if supported
-                        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-                            WebSettingsCompat.setForceDark(settings, WebSettingsCompat.FORCE_DARK_ON)
-                        }
+                        // Force Dark removed as per user request for "original" look
                         
                         loadUrl(url)
                     }
