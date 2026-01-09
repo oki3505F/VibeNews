@@ -13,11 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel = viewModel(),
+    viewModel: SettingsViewModel = hiltViewModel(),
     onBack: () -> Unit
 ) {
     Scaffold(
@@ -60,7 +61,7 @@ fun SettingsScreen(
             )
             ListItem(
                 headlineContent = { Text("VibeNews Version") },
-                supportingContent = { Text("1.0.0 (Alpha)") }
+                supportingContent = { Text("1.8.0 (Stable-ish)") }
             )
         }
     }
