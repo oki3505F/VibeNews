@@ -1,3 +1,4 @@
+Starting a Gradle Daemon, 1 busy and 1 incompatible Daemons could not be reused, use --status for details
 > Task :app:preBuild UP-TO-DATE
 > Task :app:preDebugBuild UP-TO-DATE
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
@@ -15,6 +16,8 @@
 > Task :app:processDebugManifest UP-TO-DATE
 > Task :app:processDebugManifestForPackage UP-TO-DATE
 > Task :app:processDebugResources UP-TO-DATE
+> Task :app:kaptGenerateStubsDebugKotlin UP-TO-DATE
+> Task :app:kaptDebugKotlin UP-TO-DATE
 > Task :app:javaPreCompileDebug UP-TO-DATE
 > Task :app:mergeDebugShaders UP-TO-DATE
 > Task :app:compileDebugShaders NO-SOURCE
@@ -23,7 +26,6 @@
 > Task :app:compressDebugAssets UP-TO-DATE
 > Task :app:checkDebugDuplicateClasses UP-TO-DATE
 > Task :app:desugarDebugFileDependencies UP-TO-DATE
-> Task :app:mergeExtDexDebug UP-TO-DATE
 > Task :app:mergeLibDexDebug UP-TO-DATE
 > Task :app:mergeDebugJniLibFolders UP-TO-DATE
 > Task :app:mergeDebugNativeLibs NO-SOURCE
@@ -31,32 +33,19 @@
 > Task :app:validateSigningDebug UP-TO-DATE
 > Task :app:writeDebugAppMetadata UP-TO-DATE
 > Task :app:writeDebugSigningConfigVersions UP-TO-DATE
-> Task :app:kaptGenerateStubsDebugKotlin
-> Task :app:kaptDebugKotlin
-
 > Task :app:compileDebugKotlin
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/data/NewsRepository.kt:80:13 Variable 'articles' is never used
-w: file:///home/oki/Downloads/News/VibeNews/app/src/main/java/com/vibe/news/ui/home/HomeScreen.kt:47:9 Variable 'isSearchActive' is never used
-
+> Task :app:mergeExtDexDebug
 > Task :app:compileDebugJavaWithJavac
-
-> Task :app:hiltAggregateDepsDebug
-WARNING: [Processor] Library '/home/oki/.gradle/caches/transforms-3/917fd69f9603b30dbc96034d8cd9bd0b/transformed/browser-1.7.0-api.jar' contains references to both AndroidX and old support library. This seems like the library is partially migrated. Jetifier will try to rewrite the library anyway.
- Example of androidX reference: 'androidx/browser/R$xml'
- Example of support library reference: 'android/support/customtabs/ICustomTabsCallback$Default'
-WARNING: [Processor] Library '/home/oki/.gradle/caches/transforms-3/1b015d133191559a2f7193b3ccec6b39/transformed/core-1.12.0-api.jar' contains references to both AndroidX and old support library. This seems like the library is partially migrated. Jetifier will try to rewrite the library anyway.
- Example of androidX reference: 'androidx/core/os/BuildCompat'
- Example of support library reference: 'android/support/v4/app/INotificationSideChannel$Default'
-
+> Task :app:hiltAggregateDepsDebug UP-TO-DATE
 > Task :app:hiltJavaCompileDebug
-> Task :app:processDebugJavaRes
+> Task :app:processDebugJavaRes UP-TO-DATE
 > Task :app:transformDebugClassesWithAsm
+> Task :app:mergeDebugJavaResource
 > Task :app:dexBuilderDebug
 > Task :app:mergeProjectDexDebug
-> Task :app:mergeDebugJavaResource
 > Task :app:packageDebug
 > Task :app:createDebugApkListingFileRedirect
 > Task :app:assembleDebug
 
-BUILD SUCCESSFUL in 37s
-38 actionable tasks: 14 executed, 24 up-to-date
+BUILD SUCCESSFUL in 1m 12s
+38 actionable tasks: 11 executed, 27 up-to-date

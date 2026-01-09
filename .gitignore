@@ -22,3 +22,10 @@ build/
 
 # Kotlin
 .kotlin/
+
+# Build Setup & Tools
+.build_setup/
+gh_cli
+gh.tar.gz
+*.apk
+*.hprof
