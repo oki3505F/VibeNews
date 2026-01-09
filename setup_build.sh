@@ -52,14 +52,30 @@ GRADLE_BIN="$SETUP_DIR/gradle/gradle-8.2/bin/gradle"
 # 4a. Create local.properties
 echo "sdk.dir=$ANDROID_HOME" > "$PROJECT_DIR/local.properties"
 
+# 4b. Generate Keystore (Release Mode)
+KEYSTORE_PATH="app/keystore.jks"
+if [ ! -f "$KEYSTORE_PATH" ]; then
+    echo "🔐 Generating Release Keystore..."
+    $JAVA_HOME/bin/keytool -genkeypair -v \
+    -keystore "$KEYSTORE_PATH" \
+    -keyalg RSA \
+    -keysize 2048 \
+    -validity 10000 \
+    -alias key0 \
+    -dname "CN=VibeNews, OU=Dev, O=VibeNews Corp, L=Cyber, S=Space, C=US" \
+    -storepass password \
+    -keypass password
+fi
+
 # 5. Build
-echo "🏗️  Building APK..."
+echo "🏗️  Building RELEASE APK..."
 chmod +x "$GRADLE_BIN"
-"$GRADLE_BIN" assembleDebug --stacktrace > build.log 2>&1 || true
+"$GRADLE_BIN" clean
+"$GRADLE_BIN" assembleRelease --stacktrace > build.log 2>&1 || true
 
 echo "📜 Reading Build Log (Errors only)..."
 grep -A 20 "FAILED" build.log || true
 grep -A 20 "Caused by" build.log || true
 
-echo "🎉 Build Complete! APK should be in app/build/outputs/apk/debug/"
-find app/build/outputs/apk/debug/ -name "*.apk"
+echo "🎉 Build Complete! APK should be in app/build/outputs/apk/release/"
+find app/build/outputs/apk/release/ -name "*.apk"
