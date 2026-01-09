@@ -34,4 +34,10 @@ object AppModule {
         return OkHttpClient.Builder()
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideThemeManager(app: Application): com.vibe.news.ui.theme.ThemeManager {
+        return com.vibe.news.ui.theme.ThemeManager(app)
+    }
 }

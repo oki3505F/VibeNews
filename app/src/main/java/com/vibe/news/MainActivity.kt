@@ -18,14 +18,24 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.net.Uri
 import android.util.Log
 import android.content.Intent
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.vibe.news.ui.theme.ThemeManager
+import com.vibe.news.ui.theme.AppTheme
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var themeManager: ThemeManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            VibeNewsTheme {
+            val appTheme by themeManager.themeFlow.collectAsState(initial = AppTheme.SYSTEM)
+            VibeNewsTheme(appTheme = appTheme) {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     val navController = androidx.navigation.compose.rememberNavController()

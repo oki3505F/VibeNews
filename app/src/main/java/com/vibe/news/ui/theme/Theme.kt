@@ -21,6 +21,15 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = Pink80
 )
 
+private val OledColorScheme = darkColorScheme(
+    primary = Purple80,
+    secondary = PurpleGrey80,
+    tertiary = Pink80,
+    background = PureBlack,
+    surface = PureBlack,
+    surfaceVariant = PureBlack
+)
+
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
@@ -29,16 +38,26 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun VibeNewsTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
+    appTheme: AppTheme = AppTheme.SYSTEM,
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val darkTheme = when (appTheme) {
+        AppTheme.LIGHT -> false
+        AppTheme.DARK, AppTheme.OLED -> true
+        AppTheme.SYSTEM -> isSystemInDarkTheme()
+    }
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            if (darkTheme) {
+                if (appTheme == AppTheme.OLED) OledColorScheme else dynamicDarkColorScheme(context)
+            } else {
+                dynamicLightColorScheme(context)
+            }
         }
+        appTheme == AppTheme.OLED -> OledColorScheme
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
@@ -47,8 +66,9 @@ fun VibeNewsTheme(
         SideEffect {
             val window = (view.context as? Activity)?.window
             if (window != null) {
-                window.statusBarColor = colorScheme.primary.toArgb()
-                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+                // We handle status bars in Activity using enableEdgeToEdge
+                // but we can still set appearance here if needed
+                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
             }
         }
     }

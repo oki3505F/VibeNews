@@ -14,8 +14,8 @@ android {
         applicationId = "com.vibe.news"
         minSdk = 24
         targetSdk = 34
-        versionCode = 10
-        versionName = "2.1"
+        versionCode = 11
+        versionName = "3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -91,6 +91,12 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    
+    // DataStore for Preferences
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    
+    // WebKit for Stealth Mode
+    implementation("androidx.webkit:webkit:1.10.0")
     
     // Custom Tabs
     implementation("androidx.browser:browser:1.7.0")
