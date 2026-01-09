@@ -9,9 +9,13 @@ class VibeNewsApp : Application() {
         super.onCreate()
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-            // Try to log it to a file so we can maybe find it later, 
-            // but for now, just let the default handler take over after we've had a look.
-            // In a real debug scenario, we might show a custom Activity here.
+            // Log to file for debugging
+            try {
+                val crashFile = java.io.File(externalCacheDir, "crash_log.txt")
+                crashFile.writeText("Thread: ${thread.name}\n\n${android.util.Log.getStackTraceString(throwable)}")
+            } catch (e: Exception) {
+                // Secondary fail? nothing we can do but let the main crash happen
+            }
             defaultHandler?.uncaughtException(thread, throwable)
         }
     }
